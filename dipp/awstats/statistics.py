@@ -3,25 +3,23 @@ from bda.awstatsparser.parser import ParsedStatistics
 
 class Statistics:
     
-    def __init__(self, year, journal, urls):
+    def __init__(self, journal):
         
         self.journal = journal
-        self.year = year
-        self.urls = urls
         self.parser = ParsedStatistics(self.journal, '/files/var/awstats/' + self.journal)
         
     def available_years(self):
         years = [int(y[2:6]) for y in self.parser.available]
         return list(set(years))
 
-    def get_data(self):
+    def get_data(self, year, urls):
         
-        months = ["%02d%s" % (m, self.year) for m in range(1, 13 )]
+        months = ["%02d%s" % (m, year) for m in range(1, 13 )]
         for month in months:
             if month in self.parser.available:
                 try:
                     sider = self.parser[month].get('SIDER',None)
-                    for url in self.urls:
+                    for url in urls:
                         stat = sider.get(url, None)
                 except:
                     stat = ":("
@@ -31,6 +29,6 @@ class Statistics:
 if __name__ == '__main__':
     
     urls = ['/archiv/2013/3754/']
-    stats = Statistics(2014, "afrika", urls)
+    stats = Statistics('afrika')
     print stats.available_years()
-    #print stats.get_data()
+    print stats.get_data(2015, urls)
