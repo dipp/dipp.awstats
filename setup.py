@@ -13,7 +13,7 @@ def _read(doc):
 setup(name='dipp.awstats',
       version=__version__,
       description="AWStats wrapper",
-      long_description=_read('README.rst').decode('utf-8'),
+      long_description=_read('README.md').decode('utf-8'),
       # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
         "Programming Language :: Python",
